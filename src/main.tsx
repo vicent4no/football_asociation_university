@@ -8,14 +8,14 @@ import "./index.css";
 import App from "./App.tsx";
 import apiMock from "./mocks/apiMock.ts";
 
-async function enableMocking() {
+async function setUpMocking() {
   if (import.meta.env.DEV && import.meta.env.VITE_ENABLE_MOCKING) {
     return apiMock.start({ onUnhandledRequest: "bypass" });
   }
   return;
 }
 
-await enableMocking();
+await setUpMocking();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

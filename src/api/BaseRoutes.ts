@@ -6,4 +6,6 @@ export const BaseRoutes = {
   [ApiResource.SIGN_IN]: () => `${BASE_DOMAIN}/sign_in`,
   [ApiResource.SIGN_UP]: () => `${BASE_DOMAIN}/sign_up`,
   [ApiResource.USERS]: () => `${BASE_DOMAIN}/users`,
+  [ApiResource.CATEGORIES]: () => `${BASE_DOMAIN}/categories`,
+  [ApiResource.DIVISIONS]: () => `${BASE_DOMAIN}/divisions`,
 } as const;

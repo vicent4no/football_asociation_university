@@ -24,37 +24,14 @@ import { SignInResponse } from "../api/types/SignIn.ts";
 import FootballLogo from "../assets/football-svgrepo-com.svg?react";
 import authenticationAtom from "../atoms/authenticationAtom.tsx";
 import { BrowserRoutes } from "../router/BrowserRoutes.ts";
-
-const dniValidationRegex = /^\d+$/;
-const passwordNumberRegex = /d+/;
-const passwordSpecialSymbolRegex = /[*@!#%&()^~{}'"=\-\\/]+/;
+import {
+  dniValidation,
+  passwordValidation,
+} from "./commonValidationSchemas.ts";
 
 const SignInFormSchema = yup.object({
-  dni: yup
-    .string()
-    .required("DNI es requerido")
-    .min(7, "DNI debe tener al menos 7 digitos")
-    .max(8, "DNI debe tener hasta 8 digitos")
-    .test(
-      "validateDNI",
-      "Solo números son admitidos. No escriba puntos ni caracteres",
-      (value) => dniValidationRegex.test(value)
-    ),
-  password: yup
-    .string()
-    .required("Contraseña es requerida")
-    .min(6, "Contraseña como mínimo debe tener 6 caracteres")
-    .max(20, "Contraseña como máximo debe tener 20 caracteres")
-    .test(
-      "validatePasswordNumber",
-      "Al menos un número es requreido",
-      (value) => passwordNumberRegex.test(value)
-    )
-    .test(
-      "validatePasswordSymbol",
-      "Al menos un símbolo es requerido",
-      (value) => passwordSpecialSymbolRegex.test(value)
-    ),
+  dni: dniValidation(),
+  password: passwordValidation(),
 });
 
 type SignInFormProps = yup.InferType<typeof SignInFormSchema>;

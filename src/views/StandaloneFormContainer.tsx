@@ -1,8 +1,12 @@
 import { Container } from "@mui/material";
-import { FC } from "react";
-import SignInForm from "../forms/SignInForm.tsx";
+import { FC, PropsWithChildren } from "react";
 
-const SignInView: FC = () => {
+/**
+ * Ideally used only to contain either a SignUp or a SignIn form.
+ * @param children
+ * @constructor
+ */
+const StandaloneFormContainer: FC<PropsWithChildren> = ({ children }) => {
   return (
     <Container
       style={{
@@ -16,9 +20,9 @@ const SignInView: FC = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <SignInForm />
+      {children}
     </Container>
   );
 };
 
-export default SignInView;
+export default StandaloneFormContainer;
