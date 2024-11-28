@@ -12,7 +12,7 @@ const Router = createBrowserRouter([
     element: (
       <AuthenticatedRoute>
         <GeneralLayout>
-          <div>Home placeholder</div>
+          <SignInForm />
         </GeneralLayout>
       </AuthenticatedRoute>
     ),

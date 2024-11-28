@@ -167,7 +167,7 @@ const Topbar: FC = () => {
               textDecoration: "none",
             }}
           >
-            ASOCIACION DE FUTBOL
+            AS. FUTBOL
           </Typography>
 
           <Box sx={{ flexGrow: 0 }}>
