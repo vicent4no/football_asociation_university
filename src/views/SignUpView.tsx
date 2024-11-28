@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import { useAtom } from "jotai/index";
 import { FC } from "react";
 import divisionsAtom from "../atoms/divisionsAtom.tsx";
@@ -16,7 +17,11 @@ const SignUpView: FC = () => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <StandaloneFormContainer>
+        <CircularProgress size={48} />
+      </StandaloneFormContainer>
+    );
   }
   if (isError) {
     return <div>Error...</div>;

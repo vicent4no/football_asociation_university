@@ -21,6 +21,7 @@ import * as yup from "yup";
 import { ApiResource } from "../api/ApiResource.ts";
 import { BaseRoutes } from "../api/BaseRoutes.ts";
 import { SignInResponse } from "../api/types/SignIn.ts";
+import { UserRoles } from "../api/types/User.ts";
 import FootballLogo from "../assets/football-svgrepo-com.svg?react";
 import authenticationAtom from "../atoms/authenticationAtom.tsx";
 import { BrowserRoutes } from "../router/BrowserRoutes.ts";
@@ -57,9 +58,25 @@ const SignInForm: FC = () => {
         { ...data }
       );
 
+      const roles: UserRoles[] = [];
+
+      if (response.data.esJugador) {
+        roles.push(UserRoles.PLAYER);
+      }
+      if (response.data.esDirectorTecnico) {
+        roles.push(UserRoles.TECHNICAL_DIRECTOR);
+      }
+      if (response.data.esRepresentanteEquipo) {
+        roles.push(UserRoles.TEAM_REPRESENTATIVE);
+      }
+      if (response.data.esRepresentanteAsociacion) {
+        roles.push(UserRoles.ASSOCIATION_REPRESENTATIVE);
+      }
       setAuthentication({
         bearerToken: response.data.token,
         bearerTokenExpiration: new Date(response.data.expirationDate),
+        foto: response.data.foto,
+        roles: roles,
       });
 
       navigation(BrowserRoutes.HOME);

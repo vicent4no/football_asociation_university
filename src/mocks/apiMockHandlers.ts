@@ -1,3 +1,4 @@
+import axios from "axios";
 import { http, HttpResponse } from "msw";
 import { ApiResource } from "../api/ApiResource.ts";
 import { BaseRoutes } from "../api/BaseRoutes.ts";
@@ -16,9 +17,17 @@ const apiMockHandlers = [
       if (data.dni === "40803469" && data.password === "norderO123!") {
         const oneDayFromNow = new Date();
         oneDayFromNow.setDate(oneDayFromNow.getDate() + 1);
+
+        const fotoURL = new URL("/base64foto.txt", import.meta.url).href;
+        const foto = await axios.get<string>(fotoURL);
         return HttpResponse.json({
           token: "fakeToken",
           expirationDate: oneDayFromNow.toUTCString(),
+          foto: foto.data,
+          esJugador: true,
+          esDirectorTecnico: false,
+          esRepresentanteEquipo: true,
+          esRepresentanteAsociacion: false,
         });
       }
       return HttpResponse.json(null, { status: 401, type: "error" });
@@ -81,7 +90,7 @@ const apiMockHandlers = [
   http.get<never, never, Division[]>(
     BaseRoutes[ApiResource.DIVISIONS](),
     async () => {
-      await sleep(1500);
+      await sleep(2500);
       const divisions: Division[] = [
         {
           id: 1,

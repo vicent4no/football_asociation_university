@@ -13,7 +13,6 @@ const divisionsAtom = atomWithQuery<Division[]>(() => ({
     );
     return response.data;
   },
-  placeholderData: [],
 }));
 
 export default divisionsAtom;

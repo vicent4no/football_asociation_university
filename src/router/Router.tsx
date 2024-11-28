@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import SignInForm from "../forms/SignInForm.tsx";
+import GeneralLayout from "../views/GeneralLayout.tsx";
 import SignUpView from "../views/SignUpView.tsx";
 import StandaloneFormContainer from "../views/StandaloneFormContainer.tsx";
 import AuthenticatedRoute from "./AuthenticatedRoute.tsx";
@@ -10,7 +11,9 @@ const Router = createBrowserRouter([
     path: BrowserRoutes.HOME,
     element: (
       <AuthenticatedRoute>
-        <div>Home placeholder</div>
+        <GeneralLayout>
+          <div>Home placeholder</div>
+        </GeneralLayout>
       </AuthenticatedRoute>
     ),
   },
