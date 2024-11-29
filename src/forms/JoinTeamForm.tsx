@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   CircularProgress,
-  Container,
   FormControl,
   FormHelperText,
   InputLabel,
@@ -21,12 +20,14 @@ import { useNavigate } from "react-router";
 import * as yup from "yup";
 import { ApiResource } from "../api/ApiResource.ts";
 import { BaseRoutes } from "../api/BaseRoutes.ts";
-import { JoinTeamRequest, JoinTeamResponse } from "../api/types/Team.ts";
+import { JoinTeamRequest, JoinTeamResponse, Team } from "../api/types/Team.ts";
 import authenticationAtom from "../atoms/authenticationAtom.tsx";
-import availableTeamsAtom from "../atoms/availableTeamsAtom.tsx";
 import { BrowserRoutes } from "../router/BrowserRoutes.ts";
 import { numberValidation } from "./commonValidationSchemas.ts";
 
+type JoinTeamFormProps = {
+  availableTeams: Team[];
+};
 const schema = yup.object({
   teamId: numberValidation(),
 });
@@ -35,7 +36,7 @@ type JoinTeamFormSchema = yup.InferType<typeof schema>;
 
 const snackbarAtom = atom({ show: false, message: "" });
 
-const JoinTeamForm: FC = () => {
+const JoinTeamForm: FC<JoinTeamFormProps> = ({ availableTeams }) => {
   const authStatus = useAtomValue(authenticationAtom);
 
   const navigation = useNavigate();
@@ -83,8 +84,6 @@ const JoinTeamForm: FC = () => {
     }
   };
 
-  const [availableTeams] = useAtom(availableTeamsAtom);
-
   return (
     <Card
       component="form"
@@ -111,78 +110,66 @@ const JoinTeamForm: FC = () => {
         message={snackbarStatus.message}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       />
-      {availableTeams.isSuccess ? (
-        <>
-          <Typography
-            component="h1"
-            fontWeight="500"
-            fontSize="2rem"
+      <Typography
+        component="h1"
+        fontWeight="500"
+        fontSize="2rem"
+      >
+        Inscribirse a un equipo
+      </Typography>
+      <Controller
+        control={control}
+        name="teamId"
+        render={({ field }) => (
+          <FormControl
+            size={"small"}
+            error={!!errors.teamId || !availableTeams.length}
           >
-            Inscribirse a un equipo
-          </Typography>
-          <Controller
-            control={control}
-            name="teamId"
-            render={({ field }) => (
-              <FormControl
-                size={"small"}
-                error={!!errors.teamId || !availableTeams.data.length}
+            <InputLabel htmlFor={field.name}>
+              Equipos disponibles para inscripción
+            </InputLabel>
+            {availableTeams.length ? (
+              <Select
+                variant={"standard"}
+                {...field}
               >
-                <InputLabel htmlFor={field.name}>
-                  Equipos disponibles para inscripción
-                </InputLabel>
-                {availableTeams.data.length ? (
-                  <Select
-                    variant={"standard"}
-                    {...field}
-                  >
-                    {availableTeams.data.map((t) => (
-                      <MenuItem
-                        value={t.id}
-                      >{`Equipo: ${t.nombre}. Torneo: ${t.torneo.nombre}. DT: ${t.directorTecnico.nombre} ${t.directorTecnico.apellido}`}</MenuItem>
-                    ))}
-                  </Select>
-                ) : (
-                  <>
-                    <Select
-                      variant={"standard"}
-                      {...field}
-                      disabled
-                    />
-                    <FormHelperText>
-                      No existen directores técnicos disponibles para inscribir
-                    </FormHelperText>
-                  </>
-                )}
-              </FormControl>
-            )}
-          />
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            disabled={
-              !!Object.keys(errors).length ||
-              isSubmitting ||
-              !availableTeams.data.length
-            }
-          >
-            {isSubmitting ? <CircularProgress size={24} /> : "Unirse a equipo"}
-          </Button>
-          <FormControl error={!!errors.root}>
-            {!!errors.root && (
-              <FormHelperText>{errors.root.message}</FormHelperText>
+                {availableTeams.map((t) => (
+                  <MenuItem
+                    value={t.id}
+                  >{`Equipo: ${t.nombre}. Torneo: ${t.torneo.nombre}. DT: ${t.directorTecnico.nombre} ${t.directorTecnico.apellido}`}</MenuItem>
+                ))}
+              </Select>
+            ) : (
+              <>
+                <Select
+                  variant={"standard"}
+                  {...field}
+                  disabled
+                />
+                <FormHelperText>
+                  No existen directores técnicos disponibles para inscribir
+                </FormHelperText>
+              </>
             )}
           </FormControl>
-        </>
-      ) : availableTeams.isError ? (
-        <>Ha ocurrido un error. Por favor, vuelva a intentar</>
-      ) : (
-        <Container>
-          <CircularProgress size={48} />
-        </Container>
-      )}
+        )}
+      />
+
+      <Button
+        type="submit"
+        fullWidth
+        variant="contained"
+        disabled={
+          !!Object.keys(errors).length || isSubmitting || !availableTeams.length
+        }
+      >
+        {isSubmitting ? <CircularProgress size={24} /> : "Unirse a equipo"}
+      </Button>
+      <FormControl error={!!errors.root}>
+        {!!errors.root && (
+          <FormHelperText>{errors.root.message}</FormHelperText>
+        )}
+      </FormControl>
     </Card>
   );
 };

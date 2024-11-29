@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import { UserRoles } from "../api/types/User.ts";
-import JoinTeamForm from "../forms/JoinTeamForm.tsx";
 import SignInForm from "../forms/SignInForm.tsx";
 import CreateTournamentFormContainer from "../views/CreateTournamentFormContainer.tsx";
 import GeneralLayout from "../views/GeneralLayout.tsx";
 import HomeView from "../views/HomeView.tsx";
+import JoinTeamFormContainer from "../views/JoinTeamFormContainer.tsx";
 import RegisterTeamFormContainer from "../views/RegisterTeamFormContainer.tsx";
 import SignUpView from "../views/SignUpView.tsx";
 import StandaloneFormContainer from "../views/StandaloneFormContainer.tsx";
@@ -27,7 +27,7 @@ const Router = createBrowserRouter([
     element: (
       <AuthenticatedRoute requiredRole={UserRoles.PLAYER}>
         <GeneralLayout>
-          <JoinTeamForm />
+          <JoinTeamFormContainer />
         </GeneralLayout>
       </AuthenticatedRoute>
     ),

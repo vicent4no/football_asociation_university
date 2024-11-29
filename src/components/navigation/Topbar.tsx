@@ -27,7 +27,7 @@ interface Setting {
 
 interface NavigationItem {
   name: string;
-  requiredPermission: UserRoles;
+  requiredPermission?: UserRoles;
   routeNavigation: BrowserRoutes;
 }
 
@@ -74,6 +74,7 @@ const Topbar: FC = () => {
   ];
 
   const pages: NavigationItem[] = [
+    { name: "Volver a inicio", routeNavigation: BrowserRoutes.HOME },
     {
       name: "Inscribirse a equipo",
       requiredPermission: UserRoles.PLAYER,
@@ -124,7 +125,9 @@ const Topbar: FC = () => {
             >
               {pages
                 .filter((page) =>
-                  authStatus.roles.includes(page.requiredPermission)
+                  page.requiredPermission
+                    ? authStatus.roles.includes(page.requiredPermission)
+                    : true
                 )
                 .map((page) => (
                   <MenuItem

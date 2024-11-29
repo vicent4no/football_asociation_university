@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import { useAtomValue } from "jotai";
 import { FC } from "react";
 import authenticationAtom from "../atoms/authenticationAtom.tsx";
@@ -11,7 +12,13 @@ const HomeView: FC = () => {
   }
   return (
     <div>
-      <p>{`Bienvenido ${authenticationStatus.user.apellido}, ${authenticationStatus.user.nombre} a la Asociación de Futbol.`}</p>
+      <Typography
+        component="h1"
+        fontWeight="500"
+        fontSize="2rem"
+      >
+        {`Bienvenido ${authenticationStatus.user.apellido}, ${authenticationStatus.user.nombre}`}
+      </Typography>
       <p>
         Por favor, elija una de las opciones en el menú superior izquierdo para
         operar.
