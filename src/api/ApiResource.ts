@@ -4,4 +4,6 @@ export enum ApiResource {
   USERS,
   CATEGORIES,
   DIVISIONS,
+  TOURNAMENTS,
+  TOURNAMENTS_ACTIVE,
 }

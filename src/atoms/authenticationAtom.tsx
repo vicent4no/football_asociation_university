@@ -3,11 +3,14 @@ import { UserRoles } from "../api/types/User.ts";
 import AtomLocalStorageKeys from "./AtomLocalStorageKeys.ts";
 
 type AuthenticationAtom = {
-  // id: string;
   bearerToken: string;
   bearerTokenExpiration: Date;
   foto: string;
   roles: UserRoles[];
+  id: string;
+  name: string;
+  surname: string;
+  dateOfBirth: string;
 } | null;
 
 const authenticationAtom = atomWithStorage<AuthenticationAtom>(

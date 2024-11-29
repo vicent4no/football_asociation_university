@@ -20,7 +20,7 @@ import { useNavigate } from "react-router";
 import * as yup from "yup";
 import { ApiResource } from "../api/ApiResource.ts";
 import { BaseRoutes } from "../api/BaseRoutes.ts";
-import { SignInResponse } from "../api/types/SignIn.ts";
+import { SignInRequest, SignInResponse } from "../api/types/SignIn.ts";
 import { UserRoles } from "../api/types/User.ts";
 import FootballLogo from "../assets/football-svgrepo-com.svg?react";
 import authenticationAtom from "../atoms/authenticationAtom.tsx";
@@ -53,9 +53,9 @@ const SignInForm: FC = () => {
 
   const onSubmit: SubmitHandler<SignInFormProps> = async (data) => {
     try {
-      const response = await axios.post<SignInResponse>(
+      const response = await axios.post<never, SignInResponse, SignInRequest>(
         BaseRoutes[ApiResource.SIGN_IN](),
-        { ...data }
+        { dni: data.dni, contrasenia: data.password }
       );
 
       const roles: UserRoles[] = [];
@@ -69,14 +69,18 @@ const SignInForm: FC = () => {
       if (response.data.esRepresentanteEquipo) {
         roles.push(UserRoles.TEAM_REPRESENTATIVE);
       }
-      if (response.data.esRepresentanteAsociacion) {
+      if (response.data.esEncargadoAsociacion) {
         roles.push(UserRoles.ASSOCIATION_REPRESENTATIVE);
       }
       setAuthentication({
         bearerToken: response.data.token,
-        bearerTokenExpiration: new Date(response.data.expirationDate),
+        bearerTokenExpiration: new Date(response.data.fechaExpiracion),
         foto: response.data.foto,
         roles: roles,
+        id: response.data.id,
+        name: response.data.nombre,
+        surname: response.data.apellido,
+        dateOfBirth: response.data.fechaNacimiento,
       });
 
       navigation(BrowserRoutes.HOME);

@@ -1,16 +1,20 @@
 export type SignUpRequest = {
-  dni: string;
-  contraseña: string;
-  nombre: string;
-  apellido: string;
-  fechaNacimiento: Date;
-  calle: string;
-  numero: string;
-  ciudad: string;
-  nTelefono: string;
-  esJugador?: boolean;
-  foto?: string;
-  idDivision?: number;
-  esRepresentanteEquipo?: boolean;
-  esDirectorTecnico?: boolean;
+  Dni: string;
+  Contraseña: string;
+  Nombre: string;
+  Apellido: string;
+  FechaNacimiento: Date;
+  Calle: string;
+  Numero: string;
+  Ciudad: string;
+  NTelefono1: string;
+  EsJugador?: boolean;
+  Foto?: string;
+  IdDivision?: number;
+  EsRepresentanteEquipo?: boolean;
+  EsDirectorTecnico?: boolean;
+};
+
+export type SignUpResponse = {
+  data: { mensaje: string };
 };

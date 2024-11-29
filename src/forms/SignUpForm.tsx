@@ -12,6 +12,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Snackbar,
   Stack,
   TextField,
   Typography,
@@ -21,6 +22,8 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import axios from "axios";
 
 import { enGB } from "date-fns/locale";
+import { atom } from "jotai";
+import { useAtom } from "jotai/index";
 import { FC } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
@@ -28,7 +31,9 @@ import * as yup from "yup";
 import { ApiResource } from "../api/ApiResource.ts";
 import { BaseRoutes } from "../api/BaseRoutes.ts";
 import { Division } from "../api/types/Division.ts";
-import { SignUpRequest } from "../api/types/SignUp.ts";
+import { SignUpRequest, SignUpResponse } from "../api/types/SignUp.ts";
+import { BrowserRoutes } from "../router/BrowserRoutes.ts";
+import sleep from "../utils/sleep.ts";
 import transformFileToBase64 from "../utils/transformFileToBase64.ts";
 import {
   base64PhotoOptionalValidation,
@@ -64,9 +69,12 @@ const schema = yup.object({
 
 type SignUpFormFields = yup.InferType<typeof schema>;
 
+const snackbarAtom = atom({ show: false, message: "" });
+
 const SignUpForm: FC<SignUpFormProps> = ({ divisions }) => {
   const navigation = useNavigate();
 
+  const [snackbarStatus, setSnackbarStatus] = useAtom(snackbarAtom);
   const {
     control,
     handleSubmit,
@@ -83,13 +91,30 @@ const SignUpForm: FC<SignUpFormProps> = ({ divisions }) => {
 
   const onSubmit: SubmitHandler<SignUpFormFields> = async (data) => {
     try {
-      console.log(data);
-      const response = await axios.post<SignUpRequest>(
+      const parsedData: SignUpRequest = {
+        Dni: data.dni,
+        Contraseña: data.contraseña,
+        Nombre: data.nombre,
+        Apellido: data.apellido,
+        FechaNacimiento: data.fechaNacimiento,
+        Calle: data.calle,
+        Numero: data.numero,
+        Ciudad: data.ciudad,
+        NTelefono1: data.nTelefono,
+        EsJugador: data.esJugador,
+        Foto: data.foto,
+        IdDivision: data.idDivision,
+        EsRepresentanteEquipo: data.esRepresentanteEquipo,
+        EsDirectorTecnico: data.esDirectorTecnico,
+      };
+      const response = await axios.post<never, SignUpResponse, SignUpRequest>(
         BaseRoutes[ApiResource.SIGN_UP](),
-        { ...data }
+        parsedData
       );
 
-      console.log("enviado!");
+      setSnackbarStatus(() => ({ show: true, message: response.data.mensaje }));
+      await sleep(3000);
+      navigation(BrowserRoutes.SIGN_IN);
     } catch (error) {
       if (axios.isAxiosError(error) && error.status === 400) {
         setError("root", {
@@ -102,7 +127,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ divisions }) => {
           message: "Error inesperado, por favor intente de nuevo",
         });
       }
-      setTimeout(() => clearErrors("root"), 3000);
+      setTimeout(() => clearErrors("root"), 4000);
     }
   };
 
@@ -125,6 +150,12 @@ const SignUpForm: FC<SignUpFormProps> = ({ divisions }) => {
       }}
       variant={"outlined"}
     >
+      <Snackbar
+        open={snackbarStatus.show}
+        autoHideDuration={3000}
+        message={snackbarStatus.message}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      />
       <Typography
         component="h1"
         fontWeight="500"
@@ -362,7 +393,7 @@ const SignUpForm: FC<SignUpFormProps> = ({ divisions }) => {
                   {...field}
                 >
                   {divisions.map((d) => (
-                    <MenuItem value={d.id}>{d.name}</MenuItem>
+                    <MenuItem value={d.id}>{d.nombre}</MenuItem>
                   ))}
                 </Select>
               </FormControl>

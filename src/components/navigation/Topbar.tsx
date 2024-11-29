@@ -75,9 +75,14 @@ const Topbar: FC = () => {
 
   const pages: NavigationItem[] = [
     {
-      name: "Inscripcion a equipo",
+      name: "Inscribirse a equipo",
       requiredPermission: UserRoles.PLAYER,
       routeNavigation: BrowserRoutes.JOIN_TEAM,
+    },
+    {
+      name: "Inscribir equipo a torneo",
+      requiredPermission: UserRoles.TEAM_REPRESENTATIVE,
+      routeNavigation: BrowserRoutes.CREATE_TEAM,
     },
   ];
 
