@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { UserRoles } from "../api/types/User.ts";
 import SignInForm from "../forms/SignInForm.tsx";
 import GeneralLayout from "../views/GeneralLayout.tsx";
+import HomeView from "../views/HomeView.tsx";
 import RegisterTeamFormContainer from "../views/RegisterTeamFormContainer.tsx";
 import SignUpView from "../views/SignUpView.tsx";
 import StandaloneFormContainer from "../views/StandaloneFormContainer.tsx";
@@ -14,7 +15,7 @@ const Router = createBrowserRouter([
     element: (
       <AuthenticatedRoute>
         <GeneralLayout>
-          <div>Bienvenido a la Asociación de Futbol</div>
+          <HomeView />
         </GeneralLayout>
       </AuthenticatedRoute>
     ),
