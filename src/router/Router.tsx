@@ -14,7 +14,7 @@ const Router = createBrowserRouter([
     element: (
       <AuthenticatedRoute>
         <GeneralLayout>
-          <SignInForm />
+          <div>Bienvenido a la Asociación de Futbol</div>
         </GeneralLayout>
       </AuthenticatedRoute>
     ),
