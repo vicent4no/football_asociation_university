@@ -166,7 +166,9 @@ const RegisterTeamForm: FC<RegisterTeamFormProps> = ({
                 {...field}
               >
                 {tournaments.map((d) => (
-                  <MenuItem value={d.id}>{d.nombre}</MenuItem>
+                  <MenuItem
+                    value={d.id}
+                  >{`Torneo: ${d.nombre} - Categoria: ${d.categoria?.nombre} - Division: ${d.division?.nombre}`}</MenuItem>
                 ))}
               </Select>
             ) : (

@@ -8,4 +8,5 @@ export enum ApiResource {
   TOURNAMENTS_ACTIVE,
   TECHNICAL_DIRECTORS_FREE,
   TEAMS,
+  JOIN_TEAM,
 }

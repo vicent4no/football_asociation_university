@@ -14,4 +14,6 @@ export const BaseRoutes = {
   [ApiResource.TECHNICAL_DIRECTORS_FREE]: () =>
     `${BASE_DOMAIN}/Equipo/tecnicos-sin-equipo`,
   [ApiResource.TEAMS]: () => `${BASE_DOMAIN}/Equipo`,
+  [ApiResource.JOIN_TEAM]: (teamId: number) =>
+    `${BASE_DOMAIN}/Equipo/${teamId}/asignar-jugadores`,
 } as const;

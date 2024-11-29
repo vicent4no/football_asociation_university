@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { UserRoles } from "../api/types/User.ts";
+import JoinTeamForm from "../forms/JoinTeamForm.tsx";
 import SignInForm from "../forms/SignInForm.tsx";
 import GeneralLayout from "../views/GeneralLayout.tsx";
 import HomeView from "../views/HomeView.tsx";
@@ -16,6 +17,16 @@ const Router = createBrowserRouter([
       <AuthenticatedRoute>
         <GeneralLayout>
           <HomeView />
+        </GeneralLayout>
+      </AuthenticatedRoute>
+    ),
+  },
+  {
+    path: BrowserRoutes.JOIN_TEAM,
+    element: (
+      <AuthenticatedRoute requiredRole={UserRoles.PLAYER}>
+        <GeneralLayout>
+          <JoinTeamForm />
         </GeneralLayout>
       </AuthenticatedRoute>
     ),
