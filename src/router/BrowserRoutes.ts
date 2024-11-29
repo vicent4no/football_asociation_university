@@ -4,4 +4,5 @@ export enum BrowserRoutes {
   SIGN_UP = "/sign_up",
   JOIN_TEAM = "/join_team",
   CREATE_TEAM = "/create_team",
+  CREATE_TOURNAMENT = "/create_tournament",
 }

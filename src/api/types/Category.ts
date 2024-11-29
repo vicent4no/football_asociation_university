@@ -1,6 +1,6 @@
 export type Category = {
   id: number;
-  name: string;
-  minAge: number;
-  maxAge: number;
+  nombre: string;
+  edadMinima: number;
+  edadMaxima: number;
 };

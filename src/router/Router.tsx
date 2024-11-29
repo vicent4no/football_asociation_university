@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { UserRoles } from "../api/types/User.ts";
 import JoinTeamForm from "../forms/JoinTeamForm.tsx";
 import SignInForm from "../forms/SignInForm.tsx";
+import CreateTournamentFormContainer from "../views/CreateTournamentFormContainer.tsx";
 import GeneralLayout from "../views/GeneralLayout.tsx";
 import HomeView from "../views/HomeView.tsx";
 import RegisterTeamFormContainer from "../views/RegisterTeamFormContainer.tsx";
@@ -37,6 +38,16 @@ const Router = createBrowserRouter([
       <AuthenticatedRoute requiredRole={UserRoles.TEAM_REPRESENTATIVE}>
         <GeneralLayout>
           <RegisterTeamFormContainer />
+        </GeneralLayout>
+      </AuthenticatedRoute>
+    ),
+  },
+  {
+    path: BrowserRoutes.CREATE_TOURNAMENT,
+    element: (
+      <AuthenticatedRoute requiredRole={UserRoles.ASSOCIATION_REPRESENTATIVE}>
+        <GeneralLayout>
+          <CreateTournamentFormContainer />
         </GeneralLayout>
       </AuthenticatedRoute>
     ),

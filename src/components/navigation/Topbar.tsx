@@ -84,6 +84,11 @@ const Topbar: FC = () => {
       requiredPermission: UserRoles.TEAM_REPRESENTATIVE,
       routeNavigation: BrowserRoutes.CREATE_TEAM,
     },
+    {
+      name: "Crear un torneo",
+      requiredPermission: UserRoles.ASSOCIATION_REPRESENTATIVE,
+      routeNavigation: BrowserRoutes.CREATE_TOURNAMENT,
+    },
   ];
 
   return (

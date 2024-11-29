@@ -13,3 +13,22 @@ export type Tournament = {
   categoria?: Category;
   division?: Division;
 };
+
+export type CreateTournamentRequest = {
+  Nombre: string;
+  FechaInicio: Date;
+  FechaFinalizacion: Date;
+  FechaInicioInscripcion: Date;
+  FechaFinalizacionInscripcion: Date;
+  IdEncargadoAsociacion: number;
+  IdCategoria: number;
+  IdDivision: number;
+  Ruedas: number;
+};
+
+export type CreateTournamentResponse = {
+  data: {
+    mensaje: string;
+    torneoId: number;
+  };
+};

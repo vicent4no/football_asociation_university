@@ -81,7 +81,7 @@ const SignInForm: FC = () => {
 
       navigation(BrowserRoutes.HOME);
     } catch (error) {
-      if (axios.isAxiosError(error) && error.status === 401) {
+      if (axios.isAxiosError(error) && error.status === 400) {
         setError("root", {
           message: "Credenciales inválidas, intente de nuevo",
         });
