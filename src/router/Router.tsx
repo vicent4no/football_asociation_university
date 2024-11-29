@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { UserRoles } from "../api/types/User.ts";
 import SignInForm from "../forms/SignInForm.tsx";
 import GeneralLayout from "../views/GeneralLayout.tsx";
+import RegisterTeamFormContainer from "../views/RegisterTeamFormContainer.tsx";
 import SignUpView from "../views/SignUpView.tsx";
 import StandaloneFormContainer from "../views/StandaloneFormContainer.tsx";
 import AuthenticatedRoute from "./AuthenticatedRoute.tsx";
@@ -23,7 +24,7 @@ const Router = createBrowserRouter([
     element: (
       <AuthenticatedRoute requiredRole={UserRoles.TEAM_REPRESENTATIVE}>
         <GeneralLayout>
-          <div>Creacion equipo</div>
+          <RegisterTeamFormContainer />
         </GeneralLayout>
       </AuthenticatedRoute>
     ),

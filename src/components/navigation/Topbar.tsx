@@ -33,13 +33,13 @@ interface NavigationItem {
 
 const Topbar: FC = () => {
   const navigation = useNavigate();
-  const user = useAtomValue(authenticationAtom);
+  const authStatus = useAtomValue(authenticationAtom);
 
   const modifySessionAtom = useSetAtom(authenticationAtom);
 
   const [anchors, setAnchors] = useAtom(topbarAtom);
 
-  if (!user) {
+  if (!authStatus) {
     navigation(BrowserRoutes.SIGN_IN);
     return null;
   }
@@ -118,7 +118,9 @@ const Topbar: FC = () => {
               sx={{ display: { xs: "block", md: "block" } }}
             >
               {pages
-                .filter((page) => user.roles.includes(page.requiredPermission))
+                .filter((page) =>
+                  authStatus.roles.includes(page.requiredPermission)
+                )
                 .map((page) => (
                   <MenuItem
                     key={page.name}
@@ -183,7 +185,7 @@ const Topbar: FC = () => {
               >
                 <Avatar
                   alt="Foto de perfil"
-                  src={user ? user.foto : ""}
+                  src={authStatus ? authStatus.user.foto : ""}
                 />
               </IconButton>
             </Tooltip>

@@ -6,5 +6,21 @@ export enum UserRoles {
 }
 
 export type User = {
+  id: number;
+  foto: string;
   dni: string;
+  nombre: string;
+  apellido: string;
+  fechaNacimiento: string;
+  calle: string;
+  numero: string;
+  ciudad: string;
+  nTelefono1: string;
+  esJugador: boolean;
+  esDirectorTecnico: boolean;
+  esRepresentanteEquipo: boolean;
+  esEncargadoAsociacion: boolean;
+  nSocio: string;
+  idCategoria: number;
+  idDivision: number;
 };

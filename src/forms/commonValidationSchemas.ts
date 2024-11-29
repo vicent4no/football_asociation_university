@@ -86,6 +86,8 @@ export const numberStringValidation = () =>
 export const numberValidation = () =>
   yup.number().required("Este campo es requerido");
 
+export const numberOptionalValidation = () => yup.number();
+
 export const booleanNonRequiredValidation = () => yup.boolean().optional();
 
 export const dateValidation = (minAge?: number) => {

@@ -60,27 +60,23 @@ const SignInForm: FC = () => {
 
       const roles: UserRoles[] = [];
 
-      if (response.data.esJugador) {
+      if (response.data.usuario.esJugador) {
         roles.push(UserRoles.PLAYER);
       }
-      if (response.data.esDirectorTecnico) {
+      if (response.data.usuario.esDirectorTecnico) {
         roles.push(UserRoles.TECHNICAL_DIRECTOR);
       }
-      if (response.data.esRepresentanteEquipo) {
+      if (response.data.usuario.esRepresentanteEquipo) {
         roles.push(UserRoles.TEAM_REPRESENTATIVE);
       }
-      if (response.data.esEncargadoAsociacion) {
+      if (response.data.usuario.esEncargadoAsociacion) {
         roles.push(UserRoles.ASSOCIATION_REPRESENTATIVE);
       }
       setAuthentication({
         bearerToken: response.data.token,
         bearerTokenExpiration: new Date(response.data.fechaExpiracion),
-        foto: response.data.foto,
         roles: roles,
-        id: response.data.id,
-        name: response.data.nombre,
-        surname: response.data.apellido,
-        dateOfBirth: response.data.fechaNacimiento,
+        user: response.data.usuario,
       });
 
       navigation(BrowserRoutes.HOME);

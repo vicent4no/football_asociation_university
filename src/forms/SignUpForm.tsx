@@ -41,8 +41,8 @@ import {
   commonStringValidation,
   dateValidation,
   dniValidation,
+  numberOptionalValidation,
   numberStringValidation,
-  numberValidation,
   passwordValidation,
 } from "./commonValidationSchemas.ts";
 
@@ -62,7 +62,7 @@ const schema = yup.object({
   nTelefono: numberStringValidation(),
   esJugador: booleanNonRequiredValidation(),
   foto: base64PhotoOptionalValidation(),
-  idDivision: numberValidation(),
+  idDivision: numberOptionalValidation(),
   esRepresentanteEquipo: booleanNonRequiredValidation(),
   esDirectorTecnico: booleanNonRequiredValidation(),
 });

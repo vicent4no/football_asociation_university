@@ -10,5 +10,8 @@ export const BaseRoutes = {
   [ApiResource.DIVISIONS]: () => `${BASE_DOMAIN}/Division`,
   [ApiResource.TOURNAMENTS]: () => `${BASE_DOMAIN}/Torneos`,
   [ApiResource.TOURNAMENTS_ACTIVE]: () =>
-    `${BASE_DOMAIN}/Torneos/inscripcion-activas`,
+    `${BASE_DOMAIN}/Torneos/inscripcion-activa`,
+  [ApiResource.TECHNICAL_DIRECTORS_FREE]: () =>
+    `${BASE_DOMAIN}/Equipo/tecnicos-sin-equipo`,
+  [ApiResource.TEAMS]: () => `${BASE_DOMAIN}/Equipo`,
 } as const;
